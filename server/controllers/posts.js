@@ -1,4 +1,6 @@
 import PostMessage from "../models/postMessage.js";
+import express from "express";
+import mongoose from "mongoose";
 
 export const getPosts = async (req, res) => {
   try {
@@ -18,3 +20,18 @@ export const createPost = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+
+export const deletePost = delete ("/:id",
+async (req, res) => {
+  await Todo.deleteOne({ _id: req.params.id }, (err) => {
+    if (err) {
+      res.status(500).json({
+        error: "There is Server error!",
+      });
+    } else {
+      res.status(200).json({
+        message: "Todo Deleted Successfully",
+      });
+    }
+  });
+});
